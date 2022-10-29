@@ -1,4 +1,4 @@
-import React from "react";
+import React, { SyntheticEvent, useEffect } from "react";
 import { FaTimes } from "react-icons/fa";
 import Modal from ".";
 import Button from "../Button";
@@ -20,6 +20,18 @@ const DeleteModal = ({
   const closeModal = () => {
     setShowModal(false);
   };
+  const escFunction = (event: any) => {
+    if (event.key === "Escape") {
+      setShowModal(false);
+    }
+  };
+  useEffect(() => {
+    document.addEventListener("keydown", escFunction, false);
+    return () => {
+      document.removeEventListener("keydown", escFunction, false);
+    };
+  }, []);
+
   return (
     <>
       {showModal && (

@@ -2,6 +2,7 @@ export const PUBLIC_ROUTES = {
   AUTH_PAGE: "/auth",
   FORGOT_PASSWORD: "/forgot-password",
   RESET_PASSWORD: `/auth/confirm`,
+  SIGNIN: "/signin",
 };
 
 export const PRIVATE_ROUTES = {

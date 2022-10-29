@@ -55,6 +55,7 @@ const CreatePage = () => {
     email: "",
     telephoneFax: "",
     nationality: "",
+    contractCode: "",
   };
   const validationSchema = Yup.object().shape({
     website: Yup.string().required("Website is required"),
@@ -66,6 +67,7 @@ const CreatePage = () => {
     ),
     email: Yup.string().email("Email is invalid").required("Email is required"),
     telephoneFax: Yup.string().required("Phone is required"),
+    contractCode: Yup.string().required("Contract Code is required"),
     nationality: Yup.string(),
   });
 
@@ -85,7 +87,7 @@ const CreatePage = () => {
       {showUploadModal && (
         <Modal>
           <div className="flex flex-row p-2 border-b-[1px]">
-            <h3 className="font-semibold text-2xl">Upload File</h3>
+            <h3 className="font-semibold text-2xl">Upload Contract</h3>
             <FaTimes
               opacity={0.8}
               className="ml-auto cursor-pointer"
@@ -116,8 +118,8 @@ const CreatePage = () => {
         <div className="mt-8">
           <Goback />
         </div>
-        <div className="flex flex-row justify-center items-center h-screen">
-          <div className="border-2 rounded-lg border-[#ddd] w-full sm:w-[100%] lg:w-[50%] md:w-[60%] mt-[300px] md:mt-[0px] pb-8">
+        <div className="flex flex-row justify-center items-center h-screen mt-12 md:mt-0">
+          <div className="border-2 rounded-lg border-[#ddd] w-full sm:w-[100%] lg:w-[50%] md:w-[80%] mt-[300px] md:mt-[0px] pb-8">
             <h3 className="text-2xl text-purple font-bold text-center my-2  md:mt-4">
               Create new buyer
             </h3>
@@ -292,6 +294,28 @@ const CreatePage = () => {
                       {errors.nationality && touched.nationality && (
                         <p className="absolute  text-danger text-xs mt-[0px]">
                           {errors.nationality}
+                        </p>
+                      )}
+                    </div>
+                    <div className="md:w-[48%] w-[100%]">
+                      <label htmlFor="Contract Code" className="font-semibold">
+                        Contract Code
+                      </label>
+                      <Input
+                        name="contractCode"
+                        value={values.contractCode}
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        placeholder="XXX/YYYY"
+                        className={`relative  ${
+                          touched.contractCode && errors.contractCode
+                            ? "border-danger"
+                            : ""
+                        }`}
+                      />
+                      {errors.contractCode && touched.contractCode && (
+                        <p className="absolute  text-danger text-xs mt-[0px]">
+                          {errors.contractCode}
                         </p>
                       )}
                     </div>

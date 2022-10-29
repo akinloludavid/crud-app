@@ -12,12 +12,12 @@ import {
 import { ALL_BUYERS } from "./queryKeys";
 
 export const useGetContracts = (
-  nationality = "",
+  contractCode = "",
   pageNo = 1,
   pageSize = "10"
 ) =>
-  useQuery([ALL_BUYERS, nationality, pageNo, pageSize], () =>
-    getAllContracts(nationality, pageNo, pageSize)
+  useQuery([ALL_BUYERS, contractCode, pageNo, pageSize], () =>
+    getAllContracts(contractCode, pageNo, pageSize)
   );
 
 export const useGetContractById = (id: string, options = {}) => {

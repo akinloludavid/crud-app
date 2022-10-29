@@ -36,7 +36,7 @@ const ViewBuyer = () => {
         </Button>
       </div>
       <h1 className="font-bold text-3xl my-4">Buyer Details</h1>
-      <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+      <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 gap-4 shadow-md p-4">
         <div className="flex flex-row gap-2">
           <h2 className="font-semibold">Company Name: </h2>
           <h2> {buyerDetails?.companyName}</h2>
