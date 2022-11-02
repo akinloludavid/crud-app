@@ -28,7 +28,7 @@ const HomePage = () => {
     data: buyerDetails,
     isLoading: isBuyersLoading,
     error,
-  }: any = useGetContracts("", pageNo + 1, pageSize);
+  }: any = useGetContracts(contractCodeParams, pageNo + 1, pageSize);
   const { mutate: handleMutateDelete, isLoading: isDeletingBuyer } =
     useDeleteBuyer({
       onSuccess: async () => {
@@ -117,63 +117,61 @@ const HomePage = () => {
               </thead>
               <tbody>
                 {buyerDetails?.data?.length > 0 ? (
-                  filterData(buyerDetails?.data, contractCode)?.map(
-                    (item: any, idx: number) => (
-                      <tr
-                        key={idx}
-                        onClick={() => navigate(`/contract/${item.id}`)}
-                        className={`cursor-pointer  text-sm ${
-                          idx % 2 === 0 ? `bg-[#ddd]` : `bg-light`
-                        }`}
+                  buyerDetails?.data?.map((item: any, idx: number) => (
+                    <tr
+                      key={idx}
+                      onClick={() => navigate(`/contract/${item.id}`)}
+                      className={`cursor-pointer  text-sm ${
+                        idx % 2 === 0 ? `bg-[#ddd]` : `bg-light`
+                      }`}
+                    >
+                      <td className="p-2 border-[1px] border-[#ddd]">
+                        {item.companyName}
+                      </td>
+                      <td className="p-2 border-[1px] border-[#ddd]">
+                        {item.companyRegistrationNumber}
+                      </td>
+                      <td className="p-2 border-[1px] border-[#ddd]">
+                        {item.representedBy}
+                      </td>
+                      <td className="p-2 border-[1px] border-[#ddd]">
+                        {item.contractCode}
+                      </td>
+                      <td className="p-2 border-[1px] border-[#ddd]">
+                        {item.nationality}
+                      </td>
+                      <td className="p-2 border-[1px] border-[#ddd]">
+                        {item.telephoneFax}
+                      </td>
+                      <td className="p-2 border-[1px] border-[#ddd]">
+                        {item.email}
+                      </td>
+                      <td className="p-2 border-[1px] border-[#ddd]">
+                        <a
+                          href={item.website}
+                          target="_blank"
+                          className="text-[blue]"
+                        >
+                          {item.website}
+                        </a>
+                      </td>
+                      <td className="p-2 border-[1px] border-[#ddd]">
+                        {item.status}
+                      </td>
+                      <td
+                        className="border-[0px] border-[#ddd] h-[100%]"
+                        onClick={(e) => handleEditContract(e, item)}
                       >
-                        <td className="p-2 border-[1px] border-[#ddd]">
-                          {item.companyName}
-                        </td>
-                        <td className="p-2 border-[1px] border-[#ddd]">
-                          {item.companyRegistrationNumber}
-                        </td>
-                        <td className="p-2 border-[1px] border-[#ddd]">
-                          {item.representedBy}
-                        </td>
-                        <td className="p-2 border-[1px] border-[#ddd]">
-                          {item.contractCode}
-                        </td>
-                        <td className="p-2 border-[1px] border-[#ddd]">
-                          {item.nationality}
-                        </td>
-                        <td className="p-2 border-[1px] border-[#ddd]">
-                          {item.telephoneFax}
-                        </td>
-                        <td className="p-2 border-[1px] border-[#ddd]">
-                          {item.email}
-                        </td>
-                        <td className="p-2 border-[1px] border-[#ddd]">
-                          <a
-                            href={item.website}
-                            target="_blank"
-                            className="text-[blue]"
-                          >
-                            {item.website}
-                          </a>
-                        </td>
-                        <td className="p-2 border-[1px] border-[#ddd]">
-                          {item.status}
-                        </td>
-                        <td
-                          className="border-[0px] border-[#ddd] h-[100%]"
-                          onClick={(e) => handleEditContract(e, item)}
-                        >
-                          <FaPen color="black" className="mx-auto" />
-                        </td>
-                        <td
-                          className="border-[1px] border-[#ddd]  h-[100%]"
-                          onClick={(e) => showDeleteModal(e, item)}
-                        >
-                          <FaTimes color="tomato" className="mx-auto" />
-                        </td>
-                      </tr>
-                    )
-                  )
+                        <FaPen color="black" className="mx-auto" />
+                      </td>
+                      <td
+                        className="border-[1px] border-[#ddd]  h-[100%]"
+                        onClick={(e) => showDeleteModal(e, item)}
+                      >
+                        <FaTimes color="tomato" className="mx-auto" />
+                      </td>
+                    </tr>
+                  ))
                 ) : error ? (
                   <tr className="colspan absolute mx-auto w-screen text-center top-[60vh] md:top-[40vh] left-[0px]">
                     <h1>
