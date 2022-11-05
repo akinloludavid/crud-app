@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Formik } from "formik";
+import { Field, Formik } from "formik";
 import Container from "../../components/Container";
 import Input from "../../components/Input";
 import { ICreateBuyerPayload } from "../../utils/types";
@@ -56,6 +56,7 @@ const CreatePage = () => {
     telephoneFax: "",
     nationality: "",
     contractCode: "",
+    contractStatus: "",
   };
   const validationSchema = Yup.object().shape({
     website: Yup.string().required("Website is required"),
@@ -69,6 +70,7 @@ const CreatePage = () => {
     telephoneFax: Yup.string().required("Phone is required"),
     contractCode: Yup.string().required("Contract Code is required"),
     nationality: Yup.string(),
+    contractStatus: Yup.string(),
   });
 
   const handleSubmitFile = (e: any) => {
@@ -294,6 +296,28 @@ const CreatePage = () => {
                       {errors.nationality && touched.nationality && (
                         <p className="absolute  text-danger text-xs mt-[0px]">
                           {errors.nationality}
+                        </p>
+                      )}
+                    </div>
+                    <div className="md:w-[48%] w-[100%]">
+                      <label htmlFor="" className="font-semibold">
+                        Contract Status
+                      </label>
+                      <Field
+                        as="select"
+                        name="contractStatus"
+                        className="py-2 border-2 w-full rounded-md border-gray h-[44px] focus:border-purple"
+                        onBlur={handleBlur}
+                      >
+                        <option value="">Gender</option>
+
+                        <option value="IN PROGRESS">IN PROGRESS</option>
+                        <option value="COMPLETED">COMPLETED</option>
+                        <option value="CLOSED">CLOSED</option>
+                      </Field>
+                      {errors.contractStatus && touched.contractStatus && (
+                        <p className="text-danger text-xs mt-[0px] absolute top-[68px]">
+                          {errors.contractStatus}
                         </p>
                       )}
                     </div>

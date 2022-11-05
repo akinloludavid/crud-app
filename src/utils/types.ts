@@ -50,6 +50,7 @@ export interface ICreateBuyerPayload {
   status?: string;
   nationality?: string;
   contractCode: string;
+  contractStatus?: string;
   id?: string;
 }
 
