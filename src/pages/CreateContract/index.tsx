@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Field, Formik } from "formik";
 import Container from "../../components/Container";
 import Input from "../../components/Input";
-import { ICreateBuyerPayload } from "../../utils/types";
+import { ContractStatus, ICreateBuyerPayload } from "../../utils/types";
 import * as Yup from "yup";
 import Button from "../../components/Button";
 import Goback from "../../components/GoBack";
@@ -56,7 +56,7 @@ const CreatePage = () => {
     telephoneFax: "",
     nationality: "",
     contractCode: "",
-    contractStatus: "",
+    contractStatus: ContractStatus.IN_PROGRESS,
   };
   const validationSchema = Yup.object().shape({
     website: Yup.string().required("Website is required"),
@@ -120,7 +120,7 @@ const CreatePage = () => {
         <div className="mt-8">
           <Goback />
         </div>
-        <div className="flex flex-row justify-center items-center h-screen mt-12 md:mt-0">
+        <div className="flex flex-row justify-center items-center h-screen mt-24 md:mt-0">
           <div className="border-2 rounded-lg border-[#ddd] w-full sm:w-[100%] lg:w-[50%] md:w-[80%] mt-[300px] md:mt-[0px] pb-8">
             <h3 className="text-2xl text-purple font-bold text-center my-2  md:mt-4">
               Create new buyer
@@ -309,7 +309,7 @@ const CreatePage = () => {
                         className="py-2 border-2 w-full rounded-md border-gray h-[44px] focus:border-purple"
                         onBlur={handleBlur}
                       >
-                        <option value="">Gender</option>
+                        <option value="">Contract Status</option>
 
                         <option value="IN PROGRESS">IN PROGRESS</option>
                         <option value="COMPLETED">COMPLETED</option>

@@ -179,6 +179,7 @@ export const tableHeaders = [
   "Phone",
   "Email",
   "Website",
+  "Contract Status",
   "Status",
   "Edit",
   "Delete",

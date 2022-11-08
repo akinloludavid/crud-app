@@ -2,7 +2,6 @@ import { ChangeEvent, SyntheticEvent, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Button from "../../components/Button";
 import Input from "../../components/Input";
-import TableLoader from "../../components/TableLoader";
 import { useDeleteBuyer, useGetContracts } from "../../services/customHook";
 import { tableHeaders } from "../../utils/data";
 import { FaPen, FaTimes } from "react-icons/fa";
@@ -137,6 +136,7 @@ const HomePage = () => {
                       <td className="p-2 border-[1px] border-[#ddd]">
                         {item.contractCode}
                       </td>
+
                       <td className="p-2 border-[1px] border-[#ddd]">
                         {item.nationality}
                       </td>
@@ -154,6 +154,9 @@ const HomePage = () => {
                         >
                           {item.website}
                         </a>
+                      </td>
+                      <td className="p-2 border-[1px] border-[#ddd]">
+                        {item.contractStatus}
                       </td>
                       <td className="p-2 border-[1px] border-[#ddd]">
                         {item.status}

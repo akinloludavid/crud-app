@@ -1,7 +1,7 @@
 import { Field, Formik } from "formik";
 import Container from "../../components/Container";
 import Input from "../../components/Input";
-import { ICreateBuyerPayload } from "../../utils/types";
+import { ContractStatus, ICreateBuyerPayload } from "../../utils/types";
 import * as Yup from "yup";
 import Button from "../../components/Button";
 import Goback from "../../components/GoBack";
@@ -47,6 +47,7 @@ const UpdateContract = () => {
     telephoneFax: contractDetails?.telephoneFax || "",
     nationality: contractDetails?.nationality || "",
     status: contractDetails?.status || "",
+    contractStatus: contractDetails?.contractStatus || "",
   };
   const validationSchema = Yup.object().shape({
     website: Yup.string().required("Website is required"),
@@ -60,6 +61,7 @@ const UpdateContract = () => {
     telephoneFax: Yup.string().required("Phone is required"),
     nationality: Yup.string().required("Nationality is required"),
     status: Yup.string().required("Status is required"),
+    constractStatus: Yup.string(),
   });
   const handleSubmit = (values: ICreateBuyerPayload) => {
     const updatedContractDetails = { ...values, id: contractDetails.id };
@@ -89,7 +91,7 @@ const UpdateContract = () => {
       <div className="mt-8">
         <Goback />
       </div>
-      <div className="border-[1px] rounded-lg mx-auto w-full sm:w-[100%] lg:w-[50%] md:w-[60%] p-4">
+      <div className="border-[1px] rounded-lg mx-auto w-full sm:w-[100%] mt-12 mb-6 lg:w-[50%] md:w-[60%] p-4">
         <form
           onSubmit={handleSubmitFile}
           className="flex flex-row items-center justify-between px-2 w-full py-4"
@@ -358,6 +360,34 @@ const UpdateContract = () => {
                         />
                         INACTIVE
                       </label>
+                    </div>
+                  </div>
+                  <div className="md:w-[48%] w-[100%] flex flex-col items-left">
+                    <label id="my-radio-group" className="font-semibold">
+                      Contract Status
+                    </label>
+
+                    <div
+                      role="group"
+                      className="flex flex-row gap-4 items-center mt-2"
+                      aria-labelledby="my-radio-group"
+                    >
+                      <Field
+                        as="select"
+                        name="contractStatus"
+                        className="py-2 border-2 w-full rounded-md border-gray h-[44px] focus:border-purple"
+                        onBlur={handleBlur}
+                      >
+                        <option value="">Contract Status</option>
+
+                        <option value={ContractStatus.IN_PROGRESS}>
+                          IN PROGRESS
+                        </option>
+                        <option value={ContractStatus.COMPLETED}>
+                          COMPLETED
+                        </option>
+                        <option value={ContractStatus.CLOSED}>CLOSED</option>
+                      </Field>
                     </div>
                   </div>
                   <div className="w-full">

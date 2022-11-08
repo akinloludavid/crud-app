@@ -50,7 +50,7 @@ export interface ICreateBuyerPayload {
   status?: string;
   nationality?: string;
   contractCode?: string;
-  contractStatus?: string;
+  contractStatus?: ContractStatus;
   id?: string;
 }
 
@@ -58,4 +58,9 @@ export interface IResetPasswordPayload {
   emailaddress: string;
   password: string;
   token?: string;
+}
+export enum ContractStatus {
+  IN_PROGRESS = "in progress",
+  COMPLETED = "completed",
+  CLOSED = "closed",
 }
