@@ -49,7 +49,7 @@ export interface ICreateBuyerPayload {
   website: string;
   status?: string;
   nationality?: string;
-  contractCode: string;
+  contractCode?: string;
   contractStatus?: string;
   id?: string;
 }
