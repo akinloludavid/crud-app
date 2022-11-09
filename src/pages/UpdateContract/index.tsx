@@ -68,8 +68,8 @@ const UpdateContract = () => {
     handleUpdateBuyer(updatedContractDetails);
   };
   const { mutate: fileUpload, isLoading: isFileUploading } = useUploadFile({
-    onSuccess: (_res: any) => {
-      console.log(_res);
+    onSuccess: async (_res: any) => {
+      await queryClient.refetchQueries();
       successAlert("File upload successful");
       setTimeout(() => {
         navigate("/");

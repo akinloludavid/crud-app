@@ -11,8 +11,7 @@ const ViewBuyer = () => {
   const { buyerId = "" } = useParams();
   const { errorAlert } = useNotifications();
   const navigate = useNavigate();
-  const { data: userFiles } = useGetFiles(5);
-  console.log(userFiles);
+  const { data: userFiles } = useGetFiles(buyerId);
   const { data: buyerDetails, isLoading: isBuyerDetailsLoading } =
     useGetContractById(buyerId, {
       onError: (err: any) => {
@@ -21,43 +20,14 @@ const ViewBuyer = () => {
     });
 
   const handleDownload = (e: SyntheticEvent<HTMLButtonElement>, item: any) => {
-    fetch(item.filename, {
-      method: "get",
-      mode: "no-cors",
-      referrerPolicy: "no-referrer",
-    })
-      .then((response) => response.blob())
-      .then((blob) => {
-        const link = document.createElement("a");
-        link.href = URL.createObjectURL(blob);
-        link.download = item.filename;
-        link.setAttribute("target", "_blank");
-        link.click();
-      });
-
-    // fetch(item.url, {
-    // method: "get",
-    // mode: "no-cors",
-    // referrerPolicy: "no-referrer",
-    // })
-    //   .then((res) => res.blob())
-    //   .then((res) => {
-    //     const aElement = document.createElement("a");
-    //     aElement.setAttribute("download", item.filename);
-    //     const href = URL.createObjectURL(res);
-    //     aElement.href = href;
-    //     aElement.setAttribute("target", "_blank");
-    //     aElement.click();
-    //     URL.revokeObjectURL(href);
-    //   });
-    // let link = document.createElement("a");
-    // const name = item.filename.split("/");
-    // link.download = name[name.length - 1];
-    // link.href = item.filename;
-    // document.body.appendChild(link);
-    // link.click();
-    // document.body.removeChild(link);
+    let anchor = document.createElement("a");
+    anchor.href = item.filename;
+    anchor.setAttribute("target", "_blank");
+    document.body.appendChild(anchor);
+    anchor.click();
+    document.body.removeChild(anchor);
   };
+
   if (isBuyerDetailsLoading) {
     return (
       <div className="flex flex-row justify-center items-center">
@@ -117,19 +87,27 @@ const ViewBuyer = () => {
       </section>
 
       <h2 className="text-2xl mt-16 font-semibold">Files</h2>
-      <div className=" grid grid-cols-1 gap-[4px] md:grid-cols-3 md:gap-2 md:gap-y-4 mt-8">
-        {userFiles?.data?.map((el: any, idx: number) => (
-          <div key={idx}>
-            <img src={el.filename} />
-            <Button
-              onClick={(e) => handleDownload(e, el)}
-              className="gap-4 px-4 mt-2 font-medium bg-light border-2 text-black"
-            >
-              <FaDownload /> Download
-            </Button>
-          </div>
-        ))}
-      </div>
+      {userFiles?.data?.length > 0 ? (
+        <div className=" grid grid-cols-1 gap-[4px] md:grid-cols-3 md:gap-2 md:gap-y-4 mt-8">
+          {userFiles?.data?.map((el: any, idx: number) => (
+            <div key={idx}>
+              <img src={el.filename} />
+              <Button
+                onClick={(e) => handleDownload(e, el)}
+                className="gap-4 px-4 mt-2 font-medium bg-light border-2 text-black"
+              >
+                <FaDownload /> View
+              </Button>
+            </div>
+          ))}
+        </div>
+      ) : (
+        <div className="flex flex-row justify-center">
+          <h3 className="font-medium text-black text-2xl">
+            No files has been uploaded for this buyer.
+          </h3>
+        </div>
+      )}
     </Container>
   );
 };

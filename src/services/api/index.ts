@@ -52,7 +52,7 @@ export const uploadFile = async ({ fd, buyerId }: any) => {
 };
 export const getFiles = async (buyerId: string | number) => {
   const res = await axiosInstance.get(
-    `/files/?buyerId=${buyerId}&page=1&take=3`
+    `/files/?buyerId=${buyerId}&page=1&take=10`
   );
   return res.data;
 };
