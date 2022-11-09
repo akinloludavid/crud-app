@@ -6,6 +6,7 @@ import Container from "../../components/Container";
 import Goback from "../../components/GoBack";
 import { useNotifications } from "../../customHooks";
 import { useGetContractById, useGetFiles } from "../../services/customHook";
+import { isUrlImage } from "../../utils/helpers";
 
 const ViewBuyer = () => {
   const { buyerId = "" } = useParams();
@@ -90,8 +91,13 @@ const ViewBuyer = () => {
       {userFiles?.data?.length > 0 ? (
         <div className=" grid grid-cols-1 gap-[4px] md:grid-cols-3 md:gap-2 md:gap-y-4 mt-8">
           {userFiles?.data?.map((el: any, idx: number) => (
-            <div key={idx}>
-              <img src={el.filename} />
+            <div key={idx} className="mb-4">
+              {isUrlImage(el.filename) ? (
+                <img src={el.filename} className="max-h-[300px] w-[100%]" />
+              ) : (
+                <p>Preview not available, click on the button below to view</p>
+              )}
+
               <Button
                 onClick={(e) => handleDownload(e, el)}
                 className="gap-4 px-4 mt-2 font-medium bg-light border-2 text-black"
