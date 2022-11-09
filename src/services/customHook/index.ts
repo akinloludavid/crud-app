@@ -43,6 +43,6 @@ export const useUploadFile = (options = {}) =>
     ...options,
   });
 
-export const useGetFiles = () => {
-  return useQuery(["files"], () => getFiles());
+export const useGetFiles = (buyerId: string | number) => {
+  return useQuery(["files", buyerId], () => getFiles(buyerId));
 };

@@ -69,6 +69,7 @@ const UpdateContract = () => {
   };
   const { mutate: fileUpload, isLoading: isFileUploading } = useUploadFile({
     onSuccess: (_res: any) => {
+      console.log(_res);
       successAlert("File upload successful");
       setTimeout(() => {
         navigate("/");

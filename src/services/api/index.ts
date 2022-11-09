@@ -50,7 +50,9 @@ export const uploadFile = async ({ fd, buyerId }: any) => {
   const res = await axios.post(`${baseUrl}/files/${buyerId}`, fd, config);
   return res.data;
 };
-export const getFiles = async () => {
-  const res = await axiosInstance.get(`/files/?buyerId=5&page=1&take=3`);
+export const getFiles = async (buyerId: string | number) => {
+  const res = await axiosInstance.get(
+    `/files/?buyerId=${buyerId}&page=1&take=3`
+  );
   return res.data;
 };

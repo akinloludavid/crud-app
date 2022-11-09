@@ -1,15 +1,18 @@
-import { FaPen } from "react-icons/fa";
+import { SyntheticEvent } from "react";
+import { FaDownload, FaPen } from "react-icons/fa";
 import { useParams, useNavigate } from "react-router-dom";
 import Button from "../../components/Button";
 import Container from "../../components/Container";
 import Goback from "../../components/GoBack";
 import { useNotifications } from "../../customHooks";
-import { useGetContractById } from "../../services/customHook";
+import { useGetContractById, useGetFiles } from "../../services/customHook";
 
 const ViewBuyer = () => {
   const { buyerId = "" } = useParams();
   const { errorAlert } = useNotifications();
   const navigate = useNavigate();
+  const { data: userFiles } = useGetFiles(5);
+  console.log(userFiles);
   const { data: buyerDetails, isLoading: isBuyerDetailsLoading } =
     useGetContractById(buyerId, {
       onError: (err: any) => {
@@ -17,6 +20,44 @@ const ViewBuyer = () => {
       },
     });
 
+  const handleDownload = (e: SyntheticEvent<HTMLButtonElement>, item: any) => {
+    fetch(item.filename, {
+      method: "get",
+      mode: "no-cors",
+      referrerPolicy: "no-referrer",
+    })
+      .then((response) => response.blob())
+      .then((blob) => {
+        const link = document.createElement("a");
+        link.href = URL.createObjectURL(blob);
+        link.download = item.filename;
+        link.setAttribute("target", "_blank");
+        link.click();
+      });
+
+    // fetch(item.url, {
+    // method: "get",
+    // mode: "no-cors",
+    // referrerPolicy: "no-referrer",
+    // })
+    //   .then((res) => res.blob())
+    //   .then((res) => {
+    //     const aElement = document.createElement("a");
+    //     aElement.setAttribute("download", item.filename);
+    //     const href = URL.createObjectURL(res);
+    //     aElement.href = href;
+    //     aElement.setAttribute("target", "_blank");
+    //     aElement.click();
+    //     URL.revokeObjectURL(href);
+    //   });
+    // let link = document.createElement("a");
+    // const name = item.filename.split("/");
+    // link.download = name[name.length - 1];
+    // link.href = item.filename;
+    // document.body.appendChild(link);
+    // link.click();
+    // document.body.removeChild(link);
+  };
   if (isBuyerDetailsLoading) {
     return (
       <div className="flex flex-row justify-center items-center">
@@ -74,6 +115,21 @@ const ViewBuyer = () => {
           <h2> {buyerDetails?.nationality}</h2>
         </div>
       </section>
+
+      <h2 className="text-2xl mt-16 font-semibold">Files</h2>
+      <div className=" grid grid-cols-1 gap-[4px] md:grid-cols-3 md:gap-2 md:gap-y-4 mt-8">
+        {userFiles?.data?.map((el: any, idx: number) => (
+          <div key={idx}>
+            <img src={el.filename} />
+            <Button
+              onClick={(e) => handleDownload(e, el)}
+              className="gap-4 px-4 mt-2 font-medium bg-light border-2 text-black"
+            >
+              <FaDownload /> Download
+            </Button>
+          </div>
+        ))}
+      </div>
     </Container>
   );
 };
