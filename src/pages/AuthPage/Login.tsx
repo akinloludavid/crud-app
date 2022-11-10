@@ -87,7 +87,7 @@ const Login = ({ setTab }: ISetTab) => {
                   value={values.password}
                   onChange={handleChange}
                   onBlur={handleBlur}
-                  placeholder="sample@test.com"
+                  placeholder="Password"
                   // className="mt-2"
                   className={
                     touched.password && errors.password ? "border-danger" : ""
@@ -114,7 +114,7 @@ const Login = ({ setTab }: ISetTab) => {
               )}
               <Link
                 to={"/forgot-password"}
-                className="text-sm text-[blue]  my-4 mt-2"
+                className="text-sm text-[blue]  my-4"
               >
                 Forgot Password?
               </Link>
