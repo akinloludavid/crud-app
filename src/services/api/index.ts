@@ -19,7 +19,7 @@ export const getAllContracts = async (
 };
 
 export const getContractById = async (id: string) => {
-  const res = await axiosInstance(`/buyers/${id}`);
+  const res = await axiosInstance(`/buyers/any/${id}`);
   return res.data;
 };
 

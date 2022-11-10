@@ -119,7 +119,7 @@ const HomePage = () => {
                   buyerDetails?.data?.map((item: any, idx: number) => (
                     <tr
                       key={idx}
-                      onClick={() => navigate(`/contract/${item.id}`)}
+                      onClick={() => navigate(`/buyer/${item.id}`)}
                       className={`cursor-pointer  text-sm ${
                         idx % 2 === 0 ? `bg-[#ddd]` : `bg-light`
                       }`}
