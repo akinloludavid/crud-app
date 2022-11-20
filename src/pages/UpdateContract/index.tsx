@@ -336,13 +336,13 @@ const UpdateContract = () => {
                     )}
                   </div>
                   <div className="md:w-[48%] w-[100%] flex flex-col items-left">
-                    <label id="my-radio-group" className="font-semibold">
+                    <label id="my-radio-group" className="font-semibold ">
                       Is status active?
                     </label>
 
                     <div
                       role="group"
-                      className="flex flex-row gap-4 items-center mt-2"
+                      className="flex flex-row gap-4 items-center "
                       aria-labelledby="my-radio-group"
                     >
                       <label className="cursor-pointer">
@@ -372,7 +372,7 @@ const UpdateContract = () => {
 
                     <div
                       role="group"
-                      className="flex flex-row gap-4 items-center mt-2"
+                      className="flex flex-row gap-4 items-center "
                       aria-labelledby="my-radio-group"
                     >
                       <Field
@@ -394,7 +394,7 @@ const UpdateContract = () => {
                     </div>
                   </div>
                   <div className="md:w-[48%] w-[100%] ">
-                    <label htmlFor="Contract Code" className="font-semibold">
+                    <label htmlFor="Contract Code" className="font-semibold ">
                       Contract Expiry Date
                     </label>
                     <Input
@@ -403,7 +403,7 @@ const UpdateContract = () => {
                       onChange={handleChange}
                       onBlur={handleBlur}
                       type="date"
-                      className={`relative  ${
+                      className={`relative h-[44px]  ${
                         touched.contractExpiryDate && errors.contractExpiryDate
                           ? "border-danger"
                           : ""

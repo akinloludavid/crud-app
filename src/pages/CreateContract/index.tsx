@@ -356,7 +356,7 @@ const CreatePage = () => {
                         onChange={handleChange}
                         onBlur={handleBlur}
                         type="date"
-                        className={`relative  ${
+                        className={`relative h-[44px]  ${
                           touched.contractExpiryDate &&
                           errors.contractExpiryDate
                             ? "border-danger"
