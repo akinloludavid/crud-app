@@ -63,7 +63,9 @@ const UpdateContract = () => {
     nationality: Yup.string().required("Nationality is required"),
     status: Yup.string().required("Status is required"),
     constractStatus: Yup.string(),
-    contractExpiryDate: Yup.string(),
+    contractExpiryDate: Yup.date()
+      .min(new Date(), `Contract Expiry date must not be earlier than today`)
+      .required("Please set contract expiry date"),
   });
   const handleSubmit = (values: ICreateBuyerPayload) => {
     const updatedContractDetails = { ...values, id: contractDetails.id };

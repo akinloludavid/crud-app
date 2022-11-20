@@ -72,9 +72,9 @@ const CreatePage = () => {
     contractCode: Yup.string().required("Contract Code is required"),
     nationality: Yup.string(),
     contractStatus: Yup.string(),
-    contractExpiryDate: Yup.string().required(
-      "Please set contract expiry date"
-    ),
+    contractExpiryDate: Yup.date()
+      .min(new Date(), `Contract Expiry date must not be earlier than today`)
+      .required("Please set contract expiry date"),
   });
 
   const handleSubmitFile = (e: any) => {
