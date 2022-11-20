@@ -99,11 +99,12 @@ const UpdateContract = () => {
       <div className="border-[1px] rounded-lg mx-auto w-full sm:w-[100%] mt-12 mb-6 lg:w-[50%] md:w-[60%] p-4">
         <form
           onSubmit={handleSubmitFile}
-          className="flex flex-row items-center justify-between px-2 w-full py-4"
+          className="flex flex-col sm:flex-row gap-4  items-center justify-between px-2 w-full py-4"
         >
           <input
             type={"file"}
             name="file"
+            className="w-[100%]"
             onChange={(e: any) => setFile(e.target.files[0])}
           />
           <Button
@@ -111,6 +112,7 @@ const UpdateContract = () => {
             isLoading={isFileUploading}
             isDisabled={isFileUploading || !file}
             type="submit"
+            className="sm:w-auto w-full"
           >
             Upload
           </Button>
@@ -404,6 +406,7 @@ const UpdateContract = () => {
                       value={values.contractExpiryDate}
                       onChange={handleChange}
                       onBlur={handleBlur}
+                      style={{ WebkitAppearance: "none" }}
                       type="date"
                       className={`relative h-[44px]  ${
                         touched.contractExpiryDate && errors.contractExpiryDate

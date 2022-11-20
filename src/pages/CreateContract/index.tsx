@@ -355,8 +355,9 @@ const CreatePage = () => {
                         value={values.contractExpiryDate}
                         onChange={handleChange}
                         onBlur={handleBlur}
+                        style={{ WebkitAppearance: "none" }}
                         type="date"
-                        className={`relative h-[44px]  ${
+                        className={`relative h-[44px] w-[100%]  ${
                           touched.contractExpiryDate &&
                           errors.contractExpiryDate
                             ? "border-danger"
