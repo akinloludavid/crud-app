@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Field, Formik } from "formik";
 import Container from "../../components/Container";
 import Input from "../../components/Input";
@@ -12,7 +13,6 @@ import {
 } from "../../services/customHook";
 import { useNotifications } from "../../customHooks";
 import { useNavigate, useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
 import { ALL_BUYERS } from "../../services/customHook/queryKeys";
 import { useQueryClient } from "@tanstack/react-query";
 
@@ -26,7 +26,7 @@ const UpdateContract = () => {
   const { mutate: handleUpdateBuyer, isLoading: isUpdateBuyerLoading } =
     useUpdateContract({
       onSuccess: async () => {
-        await queryClient.refetchQueries([ALL_BUYERS]);
+        await queryClient.invalidateQueries();
         successAlert("Buyer details updated successfully");
         setTimeout(() => {
           navigate("/");
@@ -48,6 +48,7 @@ const UpdateContract = () => {
     nationality: contractDetails?.nationality || "",
     status: contractDetails?.status || "",
     contractStatus: contractDetails?.contractStatus || "",
+    contractExpiryDate: contractDetails?.contractExpiryDate || "",
   };
   const validationSchema = Yup.object().shape({
     website: Yup.string().required("Website is required"),
@@ -62,6 +63,7 @@ const UpdateContract = () => {
     nationality: Yup.string().required("Nationality is required"),
     status: Yup.string().required("Status is required"),
     constractStatus: Yup.string(),
+    contractExpiryDate: Yup.string(),
   });
   const handleSubmit = (values: ICreateBuyerPayload) => {
     const updatedContractDetails = { ...values, id: contractDetails.id };
@@ -69,7 +71,7 @@ const UpdateContract = () => {
   };
   const { mutate: fileUpload, isLoading: isFileUploading } = useUploadFile({
     onSuccess: async (_res: any) => {
-      await queryClient.refetchQueries();
+      await queryClient.invalidateQueries();
       successAlert("File upload successful");
       setTimeout(() => {
         navigate("/");
@@ -112,7 +114,7 @@ const UpdateContract = () => {
           </Button>
         </form>
       </div>
-      <div className="flex flex-row justify-center items-center h-screen">
+      <div className="flex flex-row justify-center mt-[96px] items-center h-screen">
         <div className="border-2 rounded-lg border-[#ddd] w-full sm:w-[100%] lg:w-[50%] md:w-[60%] md:mt-[0px] mt-[450px] pb-8">
           <h3 className="text-2xl text-purple font-bold text-center my-4 md:my-2  md:mt-4">
             Update Buyer Details
@@ -391,11 +393,35 @@ const UpdateContract = () => {
                       </Field>
                     </div>
                   </div>
+                  <div className="md:w-[48%] w-[100%] ">
+                    <label htmlFor="Contract Code" className="font-semibold">
+                      Contract Expiry Date
+                    </label>
+                    <Input
+                      name="contractExpiryDate"
+                      value={values.contractExpiryDate}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      type="date"
+                      className={`relative  ${
+                        touched.contractExpiryDate && errors.contractExpiryDate
+                          ? "border-danger"
+                          : ""
+                      }`}
+                    />
+                    {errors.contractExpiryDate &&
+                      touched.contractExpiryDate && (
+                        <p className="absolute  text-danger text-xs mt-[0px]">
+                          {errors.contractExpiryDate}
+                        </p>
+                      )}
+                  </div>
                   <div className="w-full">
                     <Button
                       isLoading={isUpdateBuyerLoading}
                       isDisabled={!isValid || isUpdateBuyerLoading}
                       className="w-full"
+                      type="submit"
                     >
                       UPDATE BUYER
                     </Button>

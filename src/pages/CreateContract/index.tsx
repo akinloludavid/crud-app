@@ -57,6 +57,7 @@ const CreatePage = () => {
     nationality: "",
     contractCode: "",
     contractStatus: ContractStatus.IN_PROGRESS,
+    contractExpiryDate: "",
   };
   const validationSchema = Yup.object().shape({
     website: Yup.string().required("Website is required"),
@@ -71,12 +72,14 @@ const CreatePage = () => {
     contractCode: Yup.string().required("Contract Code is required"),
     nationality: Yup.string(),
     contractStatus: Yup.string(),
+    contractExpiryDate: Yup.string().required(
+      "Please set contract expiry date"
+    ),
   });
 
   const handleSubmitFile = (e: any) => {
     e.preventDefault();
     const fd = new FormData();
-
     fd.append("file", file);
     fileUpload({ fd, buyerId });
   };
@@ -117,10 +120,10 @@ const CreatePage = () => {
         </Modal>
       )}
       <Container>
-        <div className="mt-8">
+        <div className="mt-8 mb-8">
           <Goback />
         </div>
-        <div className="flex flex-row justify-center items-center h-screen mt-24 md:mt-0">
+        <div className="flex flex-row justify-center items-center h-screen mt-[144px] md:mt-0">
           <div className="border-2 rounded-lg border-[#ddd] w-full sm:w-[100%] lg:w-[50%] md:w-[80%] mt-[300px] md:mt-[0px] pb-8">
             <h3 className="text-2xl text-purple font-bold text-center my-2  md:mt-4">
               Create new buyer
@@ -342,6 +345,30 @@ const CreatePage = () => {
                           {errors.contractCode}
                         </p>
                       )}
+                    </div>
+                    <div className="md:w-[48%] w-[100%]">
+                      <label htmlFor="Contract Code" className="font-semibold">
+                        Contract Expiry Date
+                      </label>
+                      <Input
+                        name="contractExpiryDate"
+                        value={values.contractExpiryDate}
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        type="date"
+                        className={`relative  ${
+                          touched.contractExpiryDate &&
+                          errors.contractExpiryDate
+                            ? "border-danger"
+                            : ""
+                        }`}
+                      />
+                      {errors.contractExpiryDate &&
+                        touched.contractExpiryDate && (
+                          <p className="absolute  text-danger text-xs mt-[0px]">
+                            {errors.contractExpiryDate}
+                          </p>
+                        )}
                     </div>
                     <div className="md:w-[48%] w-[100%]">
                       <label htmlFor="representedBy" className="font-semibold">

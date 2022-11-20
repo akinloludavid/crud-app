@@ -85,6 +85,10 @@ const ViewBuyer = () => {
           <h2 className="font-semibold">Nationality: </h2>
           <h2> {buyerDetails?.nationality}</h2>
         </div>
+        <div className="flex flex-row gap-2">
+          <h2 className="font-semibold">Contract Expiry Date: </h2>
+          <h2> {buyerDetails?.contractExpiryDate}</h2>
+        </div>
       </section>
 
       <h2 className="text-2xl mt-16 font-semibold">Files</h2>

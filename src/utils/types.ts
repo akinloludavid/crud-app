@@ -52,6 +52,7 @@ export interface ICreateBuyerPayload {
   contractCode?: string;
   contractStatus?: ContractStatus;
   id?: string;
+  contractExpiryDate?: string;
 }
 
 export interface IResetPasswordPayload {
